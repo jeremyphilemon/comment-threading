@@ -394,13 +394,22 @@
       padding-right: 5px;
     }
 
-    .mdl-grid {
+    .platform {
       border-left-style: solid;
       border-color: #3949AB
     }
 
+    .reply_parent {
+      margin-left: -7px;
+    }
+
     .vote-default {
       color: #424242;
+    }
+
+    .answer
+    {
+      padding: 0px;
     }
 
     .vote-success {
@@ -553,24 +562,19 @@
       <div class="answer">
         <div class="answer_description">
           <div class="answer_description_align"> {{ node.name }} </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
   {% if not node.is_leaf_node %}
-  <div class="mdl-cell mdl-cell--12-col">
-    <div class="mdl-grid platform answer_parent">
 
-      <div class="answer">
-        <div class="answer_description">
+        <div class="answer_description reply_parent">
           <div class="answer_description_align"> {{ children }} </div>
         </div>
-      </div>
-    </div>
-  </div>
+
   {% endif %}
-  </li>
+</div>
+</div>
+</div>
+</div>
   {% endrecursetree %}
 
 

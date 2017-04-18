@@ -612,8 +612,10 @@
       if (textarea.css("display") == "none") {
         $(".textarea-reply").fadeOut(100);
         textarea.fadeIn(100);
+        $(this).text("Close");
       } else {
         textarea.fadeOut(100);
+        $(this).text("Reply")
       }
     });
   </script>

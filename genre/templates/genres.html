@@ -462,6 +462,10 @@
       display: none;
     }
 
+    .reply {
+      cursor: pointer;
+    }
+
     @media (max-width: 479px) {
       .answer_author_meta {
         float: left;
@@ -565,18 +569,18 @@
 
 <body>
 
-  {% load mptt_tags %} {% recursetree nodes %}
+  {% load mptt_tags %}
+
+  {% recursetree nodes %}
   <div class="mdl-cell mdl-cell--12-col">
     <div class="mdl-grid platform answer_parent">
-
       <div class="answer">
         <div class="answer_description">
           <div class="answer_description_align"> {{ node.name }} </div>
-          <a href="#" class="reply">Reply</a>
+          <a class="reply">Reply</a>
           <textarea class="textarea-reply">
           </textarea> {% if not node.is_leaf_node %}
           <div class="answer_description reply_parent">
-
             <div class="answer_description_align"> {{ children }} </div>
           </div>
           {% endif %}
@@ -592,22 +596,21 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <script>
-  $(".textarea-reply").hide();
-  $(".reply").on("click", function(){
-    // @jeremy: Try changing hide to fadeOut in Line:604/608
-    // and check which you think is better
-    // This is just temporary tho
-    // We will need to better animations for the site
+    $(".textarea-reply").hide();
+    $(".reply").on("click", function() {
+      // @jeremy: Try changing hide to fadeOut in Line:604/608
+      // and check which you think is better
+      // This is just temporary tho
+      // We will need to better animations for the site
 
-    var textarea = $(this).siblings(".textarea-reply");
-    if(textarea.css("display") == "none"){
-      $(".textarea-reply").hide(500);
-      textarea.fadeIn(500);
-    }
-    else {
-      textarea.hide(500);
-    }
-  });
+      var textarea = $(this).siblings(".textarea-reply");
+      if (textarea.css("display") == "none") {
+        $(".textarea-reply").fadeOut(100);
+        textarea.fadeIn(100);
+      } else {
+        textarea.fadeOut(100);
+      }
+    });
   </script>
 
 </body>

@@ -407,8 +407,7 @@
       color: #424242;
     }
 
-    .answer
-    {
+    .answer {
       padding: 0px;
     }
 
@@ -450,6 +449,17 @@
 
     .mdl-badge[data-badge]:after {
       font-family: 'Montserrat', sans-serif;
+    }
+
+    .textarea-reply {
+      border: solid;
+      border-color: #3949ab;
+      width: 100%;
+      height: 100px;
+    }
+
+    .textarea-reply-hidden {
+      display: none;
     }
 
     @media (max-width: 479px) {
@@ -562,21 +572,30 @@
       <div class="answer">
         <div class="answer_description">
           <div class="answer_description_align"> {{ node.name }} </div>
+          <a href="#" class="reply">Reply</a>
+          <textarea class="textarea-reply">
+          </textarea> {% if not node.is_leaf_node %}
+          <div class="answer_description reply_parent">
 
-
-  {% if not node.is_leaf_node %}
-
-        <div class="answer_description reply_parent">
-          <div class="answer_description_align"> {{ children }} </div>
+            <div class="answer_description_align"> {{ children }} </div>
+          </div>
+          {% endif %}
         </div>
-
-  {% endif %}
-</div>
-</div>
-</div>
-</div>
+      </div>
+    </div>
+  </div>
   {% endrecursetree %}
 
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script>
+    $('.reply').click(function() {
+      $('.textarea-reply').addClass('textarea-reply-hidden');
+    });
+  </script>
 
 </body>
 

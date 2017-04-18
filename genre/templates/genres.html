@@ -594,8 +594,19 @@
   <script>
   $(".textarea-reply").hide();
   $(".reply").on("click", function(){
-    $(".textarea-reply").hide();
-    $(this).siblings(".textarea-reply").fadeIn(500);
+    // @jeremy: Try changing hide to fadeOut in Line:604/608
+    // and check which you think is better
+    // This is just temporary tho
+    // We will need to better animations for the site
+
+    var textarea = $(this).siblings(".textarea-reply");
+    if(textarea.css("display") == "none"){
+      $(".textarea-reply").hide(500);
+      textarea.fadeIn(500);
+    }
+    else {
+      textarea.hide(500);
+    }
   });
   </script>
 

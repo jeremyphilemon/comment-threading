@@ -592,9 +592,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <script>
-    $('.reply').click(function() {
-      $('.textarea-reply').addClass('textarea-reply-hidden');
-    });
+  $(".textarea-reply").hide();
+  $(".reply").on("click", function(){
+    $(".textarea-reply").hide();
+    $(this).siblings(".textarea-reply").fadeIn(500);
+  });
   </script>
 
 </body>

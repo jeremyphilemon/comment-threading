@@ -9,6 +9,10 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <style>
+    .showmore {
+      cursor: pointer;
+      margin-left: 10px;
+    }
     .answer_description_align {
       font-family: 'Montserrat', sans-serif;
       padding-right: 2px;
@@ -577,7 +581,7 @@
   {% load mptt_tags %}
 
   {% recursetree nodes %}
-  <div class="mdl-cell mdl-cell--12-col">
+  <div class="mdl-cell mdl-cell--12-col answer">
     <div class="mdl-grid platform answer_parent">
       <div class="answer">
         <div class="answer_description">
@@ -586,7 +590,7 @@
           <textarea class="textarea-reply">
           </textarea> {% if not node.is_leaf_node %}
           <div class="answer_description reply_parent">
-            <div class="answer_description_align"> {{ children }} </div>
+            <div class="answer_description_align child"> {{ children }} </div>
           </div>
           {% endif %}
         </div>
@@ -601,6 +605,31 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <script>
+  //This should be on top of all the functions
+  // all the answers having child nodes
+    var childs = $(".child");
+    var threshold = 3;
+    var showMoreElement = "<a class='showmore'>Show More Posts</a>"
+    $.each(childs, function(index, child){
+      var answers = $(child).children(".answer");
+      if (answers.length>threshold){
+        $(child).append($(showMoreElement));
+        $.each(answers, function(index, answer){
+          if(index>threshold-1){
+            answer.style.display="none";
+        }
+        })
+      }
+    });
+
+    // Temporary method to show the Posts
+    // A url should replace soon
+    $(".showmore").on("click", function(e){
+      e.preventDefault();
+      $(this).siblings(".answer").show();
+      $(this).hide();
+    })
+
     $(".textarea-reply").hide();
     $(".reply").on("click", function() {
       // @jeremy: Try changing hide to fadeOut in Line:604/608

@@ -623,7 +623,7 @@
   $.each(leafs, function(index, leaf){
     var parentNodes = $(leaf).parents(".child");
     var level = parentNodes.length + 1;
-    var readThreadElement = "<a class='readthread'>Show full thread [ "+(level-threshold)+" Thread ]</a>";
+    var readThreadElement = "<a class='readthread'>Read the full train [ "+(level-threshold)+((level-threshold)>1? " Replies" : " Reply")+" ]</a>";
     if(level>threshold){
       // parentNodes[level-threshold-1] will always be a 3rd level node
       // we want to remove every node after that level
@@ -644,7 +644,7 @@
     var sameLevelThreshold = 3;
     $.each(childs, function(index, child){
       var answers = $(child).children(".answer");
-      var showMoreElement = "<a class='showmore'>Show more replies [ "+(answers.length-sameLevelThreshold)+" Children ]</a>";
+      var showMoreElement = "<a class='showmore'>Show more replies [ "+(answers.length-sameLevelThreshold)+((answers.length-sameLevelThreshold)>1? " Children" : " Child")+" ]</a>";
       if (answers.length>sameLevelThreshold){
         $(child).append($(showMoreElement));
         $.each(answers, function(index, answer){

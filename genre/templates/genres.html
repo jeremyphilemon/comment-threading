@@ -483,6 +483,12 @@
       padding-right: 0px;
     }
 
+    .readthread {
+      border-left: solid;
+      padding-left: 7px;
+      line-height: 35px;
+    }
+
     @media (max-width: 479px) {
       .answer_author_meta {
         float: left;
@@ -614,10 +620,10 @@
   // all the leaf nodes
   var leafs = $(".leaf-node");
   var threshold = 3;
-  var readThreadElement = "<a class='readthread'>Read thread</a>";
   $.each(leafs, function(index, leaf){
     var parentNodes = $(leaf).parents(".child");
     var level = parentNodes.length + 1;
+    var readThreadElement = "<a class='readthread'>Show full train [ "+level+" Children ]</a>";
     if(level>threshold){
       // parentNodes[level-threshold-1] will always be a 3rd level node
       // we want to remove every node after that level
@@ -636,9 +642,9 @@
   // all the answers having child nodes
     var childs = $(".child");
     var sameLevelThreshold = 3;
-    var showMoreElement = "<a class='showmore'>Show More Posts</a>"
     $.each(childs, function(index, child){
       var answers = $(child).children(".answer");
+      var showMoreElement = "<a class='showmore'>Show more replies [ "+answers.length+" Children ]</a>";
       if (answers.length>sameLevelThreshold){
         $(child).append($(showMoreElement));
         $.each(answers, function(index, answer){

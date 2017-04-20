@@ -13,6 +13,11 @@
       cursor: pointer;
       margin-left: 10px;
     }
+    .readthread {
+      cursor: pointer;
+      margin-top: 10px;
+      margin-left: 7px;
+    }
     .answer_description_align {
       font-family: 'Montserrat', sans-serif;
       padding-right: 2px;
@@ -585,7 +590,7 @@
     <div class="mdl-grid platform answer_parent">
       <div class="answer">
         <div class="answer_description">
-          <div class="answer_description_align"> {{ node.name }} </div>
+          <div class="answer_description_align {% if node.is_leaf_node %} leaf-node {% endif %}"> {{ node.name }} </div>
           <a class="reply">Reply</a>
           <textarea class="textarea-reply">
           </textarea> {% if not node.is_leaf_node %}
@@ -606,16 +611,38 @@
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <script>
   //This should be on top of all the functions
+  // all the leaf nodes
+  var leafs = $(".leaf-node");
+  var threshold = 3;
+  var readThreadElement = "<a class='readthread'>Read thread</a>";
+  $.each(leafs, function(index, leaf){
+    var parentNodes = $(leaf).parents(".child");
+    var level = parentNodes.length + 1;
+    if(level>threshold){
+      // parentNodes[level-threshold-1] will always be a 3rd level node
+      // we want to remove every node after that level
+      for(var i=level-threshold-1;i>=0;i--){
+        parentNodes[i].style.display="none";
+      }
+      // Element to attach the "Read Thread" link
+      var container = $(parentNodes[level-threshold-1]).closest(".reply_parent");
+      //Check whether a "read Thread" link is already present
+      if(container.children(".readthread").length==0){
+        container.append($(readThreadElement));
+      }
+    }
+  });
+
   // all the answers having child nodes
     var childs = $(".child");
-    var threshold = 3;
+    var sameLevelThreshold = 3;
     var showMoreElement = "<a class='showmore'>Show More Posts</a>"
     $.each(childs, function(index, child){
       var answers = $(child).children(".answer");
-      if (answers.length>threshold){
+      if (answers.length>sameLevelThreshold){
         $(child).append($(showMoreElement));
         $.each(answers, function(index, answer){
-          if(index>threshold-1){
+          if(index>sameLevelThreshold-1){
             answer.style.display="none";
         }
         })

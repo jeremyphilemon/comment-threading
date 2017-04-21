@@ -340,11 +340,6 @@
       margin: 0px;
     }
 
-    .answer_voting_parent {
-      width: 40px;
-      margin: 0px;
-    }
-
     .answer_vote_size {
       margin: 0px;
     }
@@ -1081,13 +1076,13 @@ td {
   {% recursetree nodes %}
   <div class="mdl-cell mdl-cell--12-col answercontainer">
     <div class="mdl-grid platform answer_parent">
-                  <div class="answer_voting_parent mdl-cell mdl-cell--1-col">
+                  <div class="answer_voting_parent mdl-cell mdl-cell--1-col" id="voteparent{{node.id}}">
                       <div class="mdl-grid voting-align">
                           <div class="mdl-cell mdl-cell--1-col voting_align answer_vote_size">
                               <button data-url="/api/answers/40/u/" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote snackbar_show" data-id="40">
                               <i class="material-icons votecolor  vote-success " id="ansUp40">expand_less</i>
                               </button>
-                          </div>
+                          </div> 
                           <div class="mdl-cell mdl-cell--1-col score answer_score_size" id="ansScore40">
                               <center>5</center>
                           </div>
@@ -1100,7 +1095,7 @@ td {
                   </div>
       <div class="answer">
                 <div class="mdl-cell mdl-cell--5-col answer_author_meta">
-                  <div class="minimise"><a>[-]</a></div>
+                  <div class="minimise" data-id="{{node.id}}"><a>[-]</a></div>
                     @<a href="/user/intellectualbro/" class="userlinks">intellectualbro</a>
                     <a class="answer_meta_time">1 month ago*</a>
                     <a id="clipboard_40" class="clipboard_button" data-clipboard-text="https://uniqna.com/thread/24/#a40" data-id="40">
@@ -1110,14 +1105,16 @@ td {
                       <span id="aspan40">Permalink</span>
                     </div>
                 </div><br>
-        <div class="answer_description">
+        <div class="answer_description" id="answerdesc{{node.id}}">
           <div class="answer_description_align {% if node.is_leaf_node %} leaf-node {% endif %}"> {{ node.name }}
           <br><a class="reply">Reply</a>
+          <div class="childVoteParent" id="childVoteParent{{node.id}}">
           <button data-url="/api/answers/40/u/" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote snackbar_show" data-id="40">
           <i class="material-icons vote">keyboard_arrow_up</i>
           </button>
           <div class="child-score">1234</div>
           <i class="material-icons vote">keyboard_arrow_down</i>
+          </div>
           <textarea class="textarea-reply">
           </textarea>
           </div>
@@ -1188,10 +1185,30 @@ td {
 
     $(".minimise").on("click", function(e){
       e.preventDefault();
-      $(".answer_voting_parent").hide();
-      $(".answer_description_align").hide();
-      $(".answer").css("padding-top", "0px");
-      $(".minimise a").text("[+]");
+      var nodeId = $(this).data("id"),
+      $anchor = $(this).children("a"),
+      $voteParent = $("#voteparent"+nodeId),
+      $childVoteParent = $("#childVoteParent"+nodeId),
+      $ansDesc = $("#answerdesc"+nodeId),
+      $ans = $(this).closest(".answer");
+
+      if($anchor.text() == "[-]"){
+        $ansDesc.hide();
+        $ans.css("padding-top", "0px");
+        if ($voteParent.css("display") == "block"){
+          $voteParent.hide();
+          $(this).data("parent", 1);
+        }
+        $anchor.text("[+]");
+      }
+      else if($anchor.text() == "[+]"){
+        $ansDesc.show();
+        $ans.css("padding-top", "7px");
+        if ($(this).data("parent")){
+          $voteParent.show();
+        }
+        $anchor.text("[-]");
+      }
     })
 
     $(".textarea-reply").hide();

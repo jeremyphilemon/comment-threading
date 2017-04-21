@@ -1057,6 +1057,14 @@ td {
     display: inline-block;
   }
 
+  .minimise {
+    display: inline-block;
+  }
+
+  .minimise a {
+    color: #9E9E9E;
+  }
+
   </style>
 
 </head>
@@ -1087,6 +1095,7 @@ td {
                   </div>
       <div class="answer">
                 <div class="mdl-cell mdl-cell--5-col answer_author_meta">
+                  <div class="minimise"><a>[-]</a></div>
                     @<a href="/user/intellectualbro/" class="userlinks">intellectualbro</a>
                     <a class="answer_meta_time">1 month ago*</a>
                     <a id="clipboard_40" class="clipboard_button" data-clipboard-text="https://uniqna.com/thread/24/#a40" data-id="40">
@@ -1170,6 +1179,14 @@ td {
       e.preventDefault();
       $(this).siblings(".answercontainer").show();
       $(this).hide();
+    })
+
+    $(".minimise").on("click", function(e){
+      e.preventDefault();
+      $(".answer_voting_parent").hide();
+      $(".answer_description_align").hide();
+      $(".answer").css("padding-top", "0px");
+      $(".minimise a").text("[+]");
     })
 
     $(".textarea-reply").hide();

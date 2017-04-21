@@ -714,7 +714,7 @@ td {
 
 .answer_description_align {
     padding-top: 10px;
-    margin-bottom: 7px;
+    margin-bottom: 0px;
 }
 
 .answer_description h4 {
@@ -1033,8 +1033,28 @@ td {
     color: #2979FF;
   }
 
+  .answer_description .showmore {
+    color: #2979FF;
+  }
+
   .child .platform {
     padding-top: 0px;
+  }
+
+  .vote {
+    display: none;
+  }
+
+  .child-score {
+    display: none;
+  }
+
+  .child .vote {
+    display: inline-block;
+  }
+
+  .child .child-score {
+    display: inline-block;
   }
 
   </style>
@@ -1082,7 +1102,7 @@ td {
           <button data-url="/api/answers/40/u/" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote snackbar_show" data-id="40">
           <i class="material-icons vote">keyboard_arrow_up</i>
           </button>
-          1234
+          <div class="child-score">1234</div>
           <i class="material-icons vote">keyboard_arrow_down</i>
           <textarea class="textarea-reply">
           </textarea>

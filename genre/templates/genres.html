@@ -1046,7 +1046,7 @@ td {
   {% load mptt_tags %}
 
   {% recursetree nodes %}
-  <div class="mdl-cell mdl-cell--12-col">
+  <div class="mdl-cell mdl-cell--12-col answercontainer">
     <div class="mdl-grid platform answer_parent">
                   <div class="answer_voting_parent mdl-cell mdl-cell--1-col">
                       <div class="mdl-grid voting-align">
@@ -1132,7 +1132,7 @@ td {
     var childs = $(".child");
     var sameLevelThreshold = 3;
     $.each(childs, function(index, child){
-      var answers = $(child).children(".answer");
+      var answers = $(child).children(".answercontainer");
       var showMoreElement = "<a class='showmore'>Show more replies [ "+(answers.length-sameLevelThreshold)+((answers.length-sameLevelThreshold)>1? " Children" : " Child")+" ]</a>";
       if (answers.length>sameLevelThreshold){
         $(child).append($(showMoreElement));
@@ -1148,7 +1148,7 @@ td {
     // A url should replace soon
     $(".showmore").on("click", function(e){
       e.preventDefault();
-      $(this).siblings(".answer").show();
+      $(this).siblings(".answercontainer").show();
       $(this).hide();
     })
 

@@ -1,4 +1,4 @@
-# An implementation of threaded comments upon Django using `django-mptt`.
+# An implementation of threaded comments using django-mptt.
 You're at the right place if you're wondering how threaded comments on [uniqna](https://uniqna.com) work.
 
 
